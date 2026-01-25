@@ -3,137 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nick Game Items </title>
+    <title>Nick Game Items - Premium</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <style>
-        :root { --primary: #00d2ff; --accent: #ff007b; --bg: #0a0a0c; --card: rgba(255, 255, 255, 0.08); --success: #00ff88; --danger: #ff4757; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #eee; margin: 0; padding-bottom: 90px; }
-        .container { max-width: 450px; margin: auto; padding: 15px; }
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --accent: #ff007b;
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 100px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 500px; margin: auto; padding: 20px; }
         .hidden { display: none !important; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px; backdrop-filter: blur(10px); }
-        input, select { width: 100%; padding: 10px; margin: 5px 0; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #333; }
-        .btn { width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.8rem; }
-        .btn-wallet { background: var(--primary); color: #000; }
-        .btn-direct { background: var(--accent); color: #fff; }
-        .btn-success { background: var(--success); color: #000; }
-        .top-bar { background: rgba(0,0,0,0.9); padding: 15px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); }
-        .section-title { font-size: 0.85rem; color: var(--primary); margin: 15px 0 8px; border-left: 3px solid var(--accent); padding-left: 10px; font-weight: bold; }
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .price-item { background: rgba(255,255,255,0.03); padding: 10px 5px; border-radius: 8px; text-align: center; border: 1px solid #333; cursor: pointer; font-size: 0.7rem; position: relative; }
-        .price-item.selected { border-color: var(--accent); background: rgba(255,0,123,0.1); }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 450px; background: #111; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #333; }
-        .nav-item { text-align: center; color: #777; font-size: 0.7rem; cursor: pointer; flex: 1; }
+
+        /* Card Styles */
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Input & Buttons */
+        input, select {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.8);
+            color: white;
+            border: 1px solid #334155;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0, 210, 255, 0.2); }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .btn-accent { background: linear-gradient(135deg, var(--accent), #d400ff); color: white; }
+        .btn:active { transform: scale(0.98); }
+
+        /* Navigation */
+        .top-bar {
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 0.65rem;
+            text-decoration: none;
+            transition: 0.3s;
+            flex: 1;
+        }
         .nav-item.active { color: var(--primary); }
-        .chat-box { height: 250px; overflow-y: auto; background: #000; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
-        .msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; font-size: 0.8rem; }
-        .msg.sent { align-self: flex-end; background: var(--primary); color: #000; }
-        .msg.received { align-self: flex-start; background: #333; color: #fff; }
-        .badge { background: var(--accent); color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.6rem; float: right; }
+        .nav-icon { font-size: 1.4rem; margin-bottom: 4px; }
+
+        /* Shop Grid */
+        .section-header {
+            font-size: 1rem;
+            font-weight: 800;
+            margin: 25px 0 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .price-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .price-item {
+            background: var(--card);
+            padding: 18px 10px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            position: relative;
+            transition: 0.3s;
+        }
+        .price-item:hover { background: rgba(255, 255, 255, 0.05); }
+        .price-item.selected { border-color: var(--primary); background: rgba(0, 210, 255, 0.1); box-shadow: 0 0 15px rgba(0, 210, 255, 0.2); }
+        .price-item b { display: block; font-size: 0.9rem; margin-bottom: 4px; }
+        .price-item span { color: var(--primary); font-weight: bold; font-size: 0.8rem; }
+
+        /* Admin Management Tools */
+        .tool-box { position: absolute; top: 5px; right: 5px; display: flex; gap: 4px; z-index: 10; }
+        .tool-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.6rem;
+            color: white;
+            cursor: pointer;
+        }
+        .btn-edit { background: var(--warning); }
+        .btn-del { background: var(--danger); }
+
+        /* Chat System */
+        .chat-container { height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 10px; }
+        .msg { padding: 10px 14px; border-radius: 18px; max-width: 80%; font-size: 0.85rem; }
+        .msg-sent { align-self: flex-end; background: var(--primary); color: #000; border-bottom-right-radius: 4px; }
+        .msg-received { align-self: flex-start; background: #334155; color: white; border-bottom-left-radius: 4px; }
+
+        .img-preview { width: 100%; border-radius: 12px; margin: 10px 0; border: 1px solid #334155; }
+        .badge { background: var(--accent); padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; }
     </style>
 </head>
 <body>
 
 <div id="app">
-    <div id="topNav" class="top-bar hidden">
-        <div><small id="userLabel"></small><br><b>💰 <span id="uBal">0</span> MMK</b></div>
-        <button onclick="logout()" style="background:none; color:red; border:1px solid red; padding:4px 8px; border-radius:5px; font-size:0.7rem;">Logout</button>
+    <div id="topBar" class="top-bar hidden">
+        <div>
+            <div id="userLabel" style="font-size: 0.7rem; color: #94a3b8;">Welcome</div>
+            <div style="font-size: 1.1rem; font-weight: 800;">💰 <span id="uBal">0</span> <small style="font-size: 0.6rem;">MMK</small></div>
+        </div>
+        <button onclick="logout()" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 10px; font-size: 0.7rem;">LOGOUT</button>
     </div>
 
     <div class="container">
-        <div id="authPanel">
-            <h1 style="text-align:center; color:var(--primary);">💎 Nick Game</h1>
+        <div id="authPanel" style="padding-top: 50px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 2.5rem; margin: 0; background: linear-gradient(to right, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">NICK GAME</h1>
+                <p style="color: #94a3b8; letter-spacing: 2px;">PREMIUM SHOP</p>
+            </div>
+            
             <div id="loginView" class="card">
                 <input type="text" id="lUser" placeholder="Username">
                 <input type="password" id="lPass" placeholder="Password">
-                <button class="btn btn-wallet" onclick="handleLogin()">LOGIN</button>
-                <p onclick="toggleAuth(true)" style="text-align:center; cursor:pointer;"><small>အကောင့်သစ်ဖွင့်ရန်</small></p>
+                <button class="btn btn-primary" onclick="handleLogin()">LOGIN TO ACCOUNT</button>
+                <p onclick="toggleAuth(true)" style="text-align:center; cursor:pointer; font-size:0.8rem; margin-top:20px; color:#94a3b8;">Don't have an account? <span style="color:var(--primary)">Register</span></p>
             </div>
+
             <div id="signView" class="card hidden">
-                <input type="text" id="sUser" placeholder="Username">
-                <input type="password" id="sPass" placeholder="Password">
-                <button class="btn btn-direct" onclick="handleSignUp()">REGISTER</button>
-                <p onclick="toggleAuth(false)" style="text-align:center; cursor:pointer;"><small>Login ပြန်ဝင်ရန်</small></p>
+                <input type="text" id="sUser" placeholder="Choose Username">
+                <input type="password" id="sPass" placeholder="Choose Password">
+                <button class="btn btn-accent" onclick="handleSignUp()">CREATE NEW ACCOUNT</button>
+                <p onclick="toggleAuth(false)" style="text-align:center; cursor:pointer; font-size:0.8rem; margin-top:20px; color:#94a3b8;">Already have an account? <span style="color:var(--primary)">Login</span></p>
             </div>
         </div>
 
         <div id="adminPage" class="hidden">
-            <h2 style="color:var(--primary); text-align:center;">Admin Master Panel</h2>
+            <h2 style="text-align: center; color: var(--primary);">Master Dashboard</h2>
             
-            <div class="section-title">💸 Pending Deposits (ငွေဖြည့်လွှာများ)</div>
+            <div class="section-header">👥 Users <span id="userCount" class="badge">0</span></div>
+            <div id="admUsers"></div>
+
+            <div class="section-header">💸 Topup Requests</div>
             <div id="admDeposits"></div>
 
-            <div class="section-title">📦 New Orders (အော်ဒါများ)</div>
+            <div class="section-header">📦 Orders</div>
             <div id="admOrders"></div>
 
-            <div class="section-title">💬 User Chats (မက်ဆေ့ခ်ျများ)</div>
-            <div id="admChatList"></div>
-            <div id="admChatView" class="card hidden">
-                <button onclick="closeAdminChat()" style="float:right; background:none; border:none; color:red;">Close</button>
-                <h4 id="targetChatUser"></h4>
-                <div id="admChatBox" class="chat-box"></div>
-                <div style="display:flex; gap:5px;">
-                    <input type="text" id="admChatInput" placeholder="စာပြန်ရန်...">
-                    <button class="btn btn-wallet" style="width:70px;" onclick="sendAdminChat()">Send</button>
-                </div>
-            </div>
-
-            <div class="section-title">➕ Add Products</div>
+            <div class="section-header">⚙️ Manage Services</div>
             <div class="card">
                 <select id="admCat">
-                    <option value="weekly">ML Weekly</option>
-                    <option value="normal">ML Dia</option>
+                    <option value="weekly">MLBB Weekly Pass</option>
+                    <option value="normal">MLBB Diamonds</option>
                     <option value="uc_normal">PUBG UC</option>
                 </select>
-                <input type="text" id="admItemName" placeholder="Name">
+                <input type="text" id="admItemName" placeholder="Item Name">
                 <input type="number" id="admItemPrice" placeholder="Price">
-                <button class="btn btn-success" onclick="saveItem()">Save</button>
+                <button class="btn btn-primary" id="btnSaveItem" onclick="saveItem()">SAVE SERVICE</button>
+            </div>
+
+            <div class="section-header">💬 Chats</div>
+            <div id="admChatList"></div>
+
+            <div id="admChatView" class="card hidden" style="position: fixed; top: 10px; left: 10px; right: 10px; z-index: 2000; height: 90vh;">
+                <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h4 id="targetChatUser" style="margin:0;">Chat</h4>
+                    <button onclick="closeAdminChat()" class="btn-del tool-btn" style="width:30px; height:30px;">X</button>
+                </div>
+                <div id="admChatBox" class="chat-container"></div>
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <input type="text" id="admChatInput" style="margin:0" placeholder="Reply...">
+                    <button class="btn btn-primary" style="width:80px; margin:0;" onclick="sendAdminChat()">Send</button>
+                </div>
             </div>
         </div>
 
         <div id="shopPage" class="hidden">
-            <div class="section-title">MLBB Items</div><div class="price-grid" id="gridWeekly"></div><div class="price-grid" id="gridNormal"></div>
-            <div class="section-title">PUBG UC</div><div class="price-grid" id="gridUc_normal"></div>
-            
-            <div class="card" style="margin-top:20px;">
-                <h4 id="selText">ပစ္စည်းရွေးပါ</h4>
-                <input type="text" id="gameId" placeholder="Game ID / Player ID">
-                <div style="display:flex; gap:10px;">
-                    <button class="btn btn-direct" onclick="submitOrder('direct')">တိုက်ရိုက်ဝယ်</button>
-                    <button class="btn btn-wallet" onclick="submitOrder('wallet')">Wallet ဖြင့်ဝယ်</button>
+            <div class="section-header">🔥 Mobile Legends Items</div>
+            <div class="price-grid" id="gridWeekly"></div>
+            <div style="margin-top:10px;" class="price-grid" id="gridNormal"></div>
+
+            <div class="section-header">🔫 PUBG Mobile UC</div>
+            <div class="price-grid" id="gridUc_normal"></div>
+
+            <div class="card" style="margin-top:30px; border-top: 2px solid var(--primary);">
+                <h3 id="selText" style="text-align:center; font-size:1rem; color:var(--primary);">Select Item Above</h3>
+                <input type="text" id="gameId" placeholder="Player ID (e.g. 1234567 1234)">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <button class="btn btn-accent" onclick="submitOrder('direct')">DIRECT</button>
+                    <button class="btn btn-primary" onclick="submitOrder('wallet')">WALLET</button>
                 </div>
             </div>
         </div>
 
         <div id="topupPage" class="hidden">
             <div class="card">
-                <h3>💰 Wallet Topup</h3>
-                <input type="number" id="tAmt" placeholder="Amount">
-                <button class="btn btn-wallet" onclick="submitDeposit()">Submit Request</button>
+                <h2 style="text-align:center;">Add Funds</h2>
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: 0.85rem;">
+                    <div style="display:flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>KBZ Pay</span>
+                        <b style="color:var(--primary)">09975550457</b>
+                    </div>
+                    <div style="display:flex; justify-content: space-between;">
+                        <span>Wave Pay</span>
+                        <b style="color:var(--primary)">09975550457</b>
+                    </div>
+                </div>
+                <input type="number" id="tAmt" placeholder="Amount (MMK)">
+                <label style="font-size: 0.7rem; color: #94a3b8;">Upload Receipt (Screenshot)</label>
+                <input type="file" id="tFile" accept="image/*">
+                <button class="btn btn-primary" onclick="submitDeposit()">SUBMIT TOPUP</button>
             </div>
         </div>
 
         <div id="chatPage" class="hidden">
             <div class="card">
-                <h3>💬 Chat with Admin</h3>
-                <div id="chatBox" class="chat-box"></div>
-                <div style="display:flex; gap:5px;">
-                    <input type="text" id="userChatInput" placeholder="စာရေးပါ...">
-                    <button class="btn btn-direct" style="width:70px;" onclick="sendUserChat()">Send</button>
+                <h3 style="margin-top:0;">Support Chat</h3>
+                <div id="chatBox" class="chat-container"></div>
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <input type="text" id="userChatInput" style="margin:0" placeholder="Ask anything...">
+                    <button class="btn btn-accent" style="width:80px; margin:0;" onclick="sendUserChat()">Send</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="botNav" class="bottom-nav hidden">
-        <div class="nav-item" id="navShop" onclick="nav('shop', this)">🏠<br>Shop</div>
-        <div class="nav-item" id="navTopup" onclick="nav('topup', this)">💸<br>Topup</div>
-        <div class="nav-item" id="navChat" onclick="nav('chat', this)">💬<br>Chat</div>
-        <div id="adminTab" class="nav-item hidden" onclick="nav('admin', this)">⚙️<br>Admin</div>
+        <a href="#" class="nav-item" id="navShop" onclick="nav('shop', this)">
+            <span class="nav-icon">🏠</span>
+            <span>Store</span>
+        </a>
+        <a href="#" class="nav-item" id="navTopup" onclick="nav('topup', this)">
+            <span class="nav-icon">💳</span>
+            <span>Topup</span>
+        </a>
+        <a href="#" class="nav-item" id="navChat" onclick="nav('chat', this)">
+            <span class="nav-icon">💬</span>
+            <span>Chat</span>
+        </a>
+        <a href="#" class="nav-item hidden" id="adminTab" onclick="nav('admin', this)">
+            <span class="nav-icon">⚡</span>
+            <span>Admin</span>
+        </a>
     </div>
 </div>
 
 <script>
+    // --- FIREBASE CONFIG ---
     const firebaseConfig = {
         apiKey: "AIzaSyCwm2wNMX2u221y2SvxUub1IoFRrTR--88",
         authDomain: "nickgameitems.firebaseapp.com",
@@ -145,174 +322,236 @@
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
+
     const ADMIN_CREDS = { u: "admin", p: "nickgame" };
-    let currentUser = null; let selectedItem = null; let currentAdminChatUser = null;
+    let currentUser = null;
+    let selectedItem = null;
+    let currentAdminChatUser = null;
+    let editItemId = null;
+    let editItemCat = null;
+
+    // --- CORE LOGIC ---
+    window.onload = function() {
+        currentUser = localStorage.getItem('zan_user');
+        if(currentUser) startApp();
+    };
 
     function startApp() {
-        currentUser = localStorage.getItem('zan_user');
-        if(!currentUser) return;
         document.getElementById('authPanel').classList.add('hidden');
-        document.getElementById('topNav').classList.remove('hidden');
+        document.getElementById('topBar').classList.remove('hidden');
         document.getElementById('botNav').classList.remove('hidden');
-        document.getElementById('userLabel').innerText = "User: " + currentUser;
-        loadPrices(); loadBalance();
+        document.getElementById('userLabel').innerText = "Logged in as " + currentUser;
+        
+        loadPrices();
+        loadBalance();
+
         if(currentUser === ADMIN_CREDS.u) {
             document.getElementById('adminTab').classList.remove('hidden');
-            loadAdminData(); nav('admin', document.getElementById('adminTab'));
+            loadAdminData();
+            nav('admin', document.getElementById('adminTab'));
         } else {
-            loadUserChat(); nav('shop', document.getElementById('navShop'));
+            loadUserChat();
+            nav('shop', document.getElementById('navShop'));
         }
     }
 
-    // --- Admin Engine ---
+    async function handleLogin() {
+        const u = document.getElementById('lUser').value.trim();
+        const p = document.getElementById('lPass').value;
+        if(u === ADMIN_CREDS.u && p === ADMIN_CREDS.p) {
+            currentUser = u;
+        } else {
+            const s = await db.ref('users/'+u).once('value');
+            if(s.exists()){
+                const ud = s.val();
+                if(ud.status === 'banned') return alert("Account BANNED!");
+                if(ud.password === p) currentUser = u;
+                else return alert("Wrong PW!");
+            } else return alert("User Not Found!");
+        }
+        localStorage.setItem('zan_user', currentUser);
+        startApp();
+    }
+
+    async function handleSignUp() {
+        const u = document.getElementById('sUser').value.trim();
+        const p = document.getElementById('sPass').value;
+        if(!u || !p) return;
+        const s = await db.ref('users/'+u).once('value');
+        if(s.exists()) return alert("Username Taken!");
+        await db.ref('users/'+u).set({ password: p, balance: 0, status: 'active' });
+        alert("Account Created!");
+        toggleAuth(false);
+    }
+
+    // --- ADMIN ENGINE ---
     function loadAdminData() {
-        // Deposits
-        db.ref('deposits').on('value', s => {
-            let h = ""; s.forEach(c => {
-                const d = c.val(); if(d.status==='pending') {
-                    h += `<div class="card">User: ${d.user} | <b>${d.amount}ks</b> 
-                        <button class="btn btn-success" onclick="approveDeposit('${c.key}','${d.user}',${d.amount})">Approve</button></div>`;
+        db.ref('users').on('value', s => {
+            let h = ""; let count = 0;
+            s.forEach(c => {
+                const u = c.val();
+                if(c.key !== 'admin') {
+                    count++;
+                    const isBanned = u.status === 'banned';
+                    h += `<div class="card" style="font-size:0.8rem; border-left: 4px solid ${isBanned?'#ef4444':'#10b981'}">
+                        <b>${c.key}</b> (PW: ${u.password})<br>Bal: ${u.balance}ks
+                        <div style="display:flex; gap:5px; margin-top:10px;">
+                            <button class="btn btn-primary" style="padding:5px; font-size:0.6rem;" onclick="editUserBal('${c.key}')">Edit Bal</button>
+                            <button class="btn" style="padding:5px; font-size:0.6rem; background:${isBanned?'#10b981':'#ef4444'}; color:white;" onclick="toggleBan('${c.key}', ${isBanned})">${isBanned?'Unban':'Ban'}</button>
+                        </div>
+                    </div>`;
                 }
             });
-            document.getElementById('admDeposits').innerHTML = h || "<p>No pending deposits</p>";
+            document.getElementById('admUsers').innerHTML = h;
+            document.getElementById('userCount').innerText = count;
         });
-        // Orders
+
+        db.ref('deposits').on('value', s => {
+            let h = "";
+            s.forEach(c => {
+                const d = c.val();
+                if(d.status === 'pending') {
+                    h += `<div class="card">
+                        <b>${d.user}</b> - ${d.amount} MMK
+                        <img src="${d.image}" class="img-preview">
+                        <button class="btn btn-primary" onclick="approveDep('${c.key}','${d.user}',${d.amount})">APPROVE</button>
+                    </div>`;
+                }
+            });
+            document.getElementById('admDeposits').innerHTML = h || "<p>No requests</p>";
+        });
+
         db.ref('orders').on('value', s => {
-            let h = ""; s.forEach(c => {
-                const o = c.val(); if(o.status==='pending') {
-                    h += `<div class="card"><b>${o.item}</b> (${o.type})<br>ID: ${o.gid} | User: ${o.user}
-                        <button class="btn btn-wallet" onclick="db.ref('orders/${c.key}').update({status:'done'})">Done</button></div>`;
+            let h = "";
+            s.forEach(c => {
+                const o = c.val();
+                if(o.status === 'pending') {
+                    h += `<div class="card" style="border-right: 4px solid var(--accent)">
+                        📦 ${o.item}<br>ID: ${o.gid} | User: ${o.user}
+                        <button class="btn btn-primary" style="margin-top:10px" onclick="db.ref('orders/${c.key}').update({status:'done'})">DONE</button>
+                    </div>`;
                 }
             });
             document.getElementById('admOrders').innerHTML = h || "<p>No orders</p>";
         });
-        // Chat List
+
         db.ref('chats').on('value', s => {
-            let h = ""; s.forEach(c => {
-                h += `<div class="card" onclick="openAdminChat('${c.key}')" style="cursor:pointer;">💬 Chat with: <b>${c.key}</b></div>`;
-            });
-            document.getElementById('admChatList').innerHTML = h || "<p>No chats</p>";
+            let h = ""; s.forEach(c => { h += `<div class="card" onclick="openAdminChat('${c.key}')" style="cursor:pointer">💬 User: ${c.key}</div>`; });
+            document.getElementById('admChatList').innerHTML = h;
         });
     }
 
-    async function approveDeposit(key, user, amt) {
-        const s = await db.ref('users/'+user+'/balance').once('value');
-        const cur = s.val() || 0;
-        await db.ref('users/'+user).update({ balance: cur + parseInt(amt) });
-        await db.ref('deposits/'+key).update({ status: 'approved' });
-        alert("Approved!");
-    }
-
-    function openAdminChat(user) {
-        currentAdminChatUser = user;
-        document.getElementById('admChatView').classList.remove('hidden');
-        document.getElementById('targetChatUser').innerText = "Chatting with: " + user;
-        db.ref('chats/'+user).on('value', s => {
-            let h = ""; s.forEach(c => {
-                const m = c.val();
-                h += `<div class="msg ${m.user==='admin'?'sent':'received'}">${m.text}</div>`;
-            });
-            document.getElementById('admChatBox').innerHTML = h;
-            document.getElementById('admChatBox').scrollTop = document.getElementById('admChatBox').scrollHeight;
-        });
-    }
-
-    function sendAdminChat() {
-        const txt = document.getElementById('admChatInput').value;
-        if(txt && currentAdminChatUser) {
-            db.ref('chats/'+currentAdminChatUser).push({ user: 'admin', text: txt });
-            document.getElementById('admChatInput').value = "";
+    async function saveItem() {
+        const cat = document.getElementById('admCat').value;
+        const n = document.getElementById('admItemName').value;
+        const p = document.getElementById('admItemPrice').value;
+        if(!n || !p) return;
+        if(editItemId) {
+            await db.ref(`prices/${editItemCat}/${editItemId}`).update({ n, p: parseInt(p) });
+            editItemId = null;
+        } else {
+            await db.ref('prices/'+cat).push({ n, p: parseInt(p) });
         }
+        document.getElementById('admItemName').value = "";
+        document.getElementById('admItemPrice').value = "";
+        document.getElementById('btnSaveItem').innerText = "SAVE SERVICE";
     }
 
-    function closeAdminChat() { document.getElementById('admChatView').classList.add('hidden'); }
-
-    // --- User Chat ---
-    function sendUserChat() {
-        const txt = document.getElementById('userChatInput').value;
-        if(txt) {
-            db.ref('chats/'+currentUser).push({ user: currentUser, text: txt });
-            document.getElementById('userChatInput').value = "";
-        }
+    function editItem(cat, id, n, p) {
+        editItemId = id; editItemCat = cat;
+        document.getElementById('admCat').value = cat;
+        document.getElementById('admItemName').value = n;
+        document.getElementById('admItemPrice').value = p;
+        document.getElementById('btnSaveItem').innerText = "UPDATE SERVICE";
+        nav('admin', document.getElementById('adminTab'));
     }
 
-    function loadUserChat() {
-        db.ref('chats/'+currentUser).on('value', s => {
-            let h = ""; s.forEach(c => {
-                const m = c.val();
-                h += `<div class="msg ${m.user===currentUser?'sent':'received'}">${m.text}</div>`;
-            });
-            document.getElementById('chatBox').innerHTML = h;
-            document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
-        });
-    }
-
-    // --- Core Functions ---
-    async function submitDeposit() {
-        const amt = document.getElementById('tAmt').value;
-        if(amt) {
-            await db.ref('deposits').push({ user: currentUser, amount: amt, status: 'pending' });
-            alert("Sent! Admin will check soon.");
-        }
-    }
-
-    async function submitOrder(type) {
-        if(!selectedItem) return alert("Select item");
-        const gid = document.getElementById('gameId').value;
-        if(!gid) return alert("Enter ID");
-        if(type==='wallet') {
-            const s = await db.ref('users/'+currentUser+'/balance').once('value');
-            if((s.val()||0) < selectedItem.p) return alert("No balance");
-            await db.ref('users/'+currentUser).update({ balance: s.val() - selectedItem.p });
-        }
-        await db.ref('orders').push({ user: currentUser, item: selectedItem.n, gid, type, status:'pending' });
-        alert("Ordered!");
-    }
-
+    // --- USER ENGINE ---
     function loadPrices() {
         db.ref('prices').on('value', s => {
             const d = s.val() || {};
             ['weekly','normal','uc_normal'].forEach(c => {
                 let h = ""; if(d[c]) Object.keys(d[c]).forEach(k => {
                     const i = d[c][k];
-                    h += `<div class="price-item" onclick="select(this,'${i.n}',${i.p})"><b>${i.n}</b><br>${i.p}k</div>`;
+                    h += `<div class="price-item" onclick="selectItem(this,'${i.n}',${i.p})">
+                        ${currentUser==='admin' ? `<div class="tool-box"><button class="tool-btn btn-edit" onclick="event.stopPropagation(); editItem('${c}','${k}','${i.n}',${i.p})">E</button><button class="tool-btn btn-del" onclick="event.stopPropagation(); db.ref('prices/${c}/${k}').remove()">D</button></div>`:''}
+                        <b>${i.n}</b><span>${i.p} MMK</span>
+                    </div>`;
                 });
-                const box = document.getElementById('grid'+c.charAt(0).toUpperCase()+c.slice(1));
-                if(box) box.innerHTML = h;
+                document.getElementById('grid'+c.charAt(0).toUpperCase()+c.slice(1)).innerHTML = h;
             });
         });
     }
 
-    // Auth & UI Helpers
-    function select(el, n, p) { selectedItem = {n, p}; document.querySelectorAll('.price-item').forEach(x => x.classList.remove('selected')); el.classList.add('selected'); document.getElementById('selText').innerText = n + " ("+p+"ks)"; }
-    function nav(p, el) { ['shop','topup','chat','admin'].forEach(i => document.getElementById(i+'Page') && document.getElementById(i+'Page').classList.add('hidden')); document.getElementById(p+'Page').classList.remove('hidden'); document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active')); el.classList.add('active'); }
-    function logout() { localStorage.removeItem('zan_user'); location.reload(); }
-    async function handleLogin() {
-        const u = document.getElementById('lUser').value.trim();
-        const p = document.getElementById('lPass').value;
-        if(u===ADMIN_CREDS.u && p===ADMIN_CREDS.p) currentUser = u;
-        else {
-            const s = await db.ref('users/'+u).once('value');
-            if(s.exists() && s.val().password === p) currentUser = u;
-            else return alert("Failed");
+    function selectItem(el, n, p) {
+        selectedItem = {n, p};
+        document.querySelectorAll('.price-item').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('selText').innerText = n + " (" + p + "ks)";
+    }
+
+    async function submitOrder(type) {
+        if(!selectedItem) return alert("Select item!");
+        const gid = document.getElementById('gameId').value;
+        if(!gid) return alert("Enter Game ID!");
+        if(type === 'wallet') {
+            const s = await db.ref('users/'+currentUser+'/balance').once('value');
+            if((s.val()||0) < selectedItem.p) return alert("Low balance!");
+            await db.ref('users/'+currentUser).update({ balance: s.val() - selectedItem.p });
         }
-        localStorage.setItem('zan_user', currentUser); startApp();
+        await db.ref('orders').push({ user: currentUser, item: selectedItem.n, gid, type, status:'pending' });
+        alert("Ordered!");
     }
-    async function handleSignUp() {
-        const u = document.getElementById('sUser').value.trim();
-        const p = document.getElementById('sPass').value;
-        if(u && p) { await db.ref('users/'+u).set({ password: p, balance: 0 }); alert("Success"); toggleAuth(false); }
+
+    async function submitDeposit() {
+        const amt = document.getElementById('tAmt').value;
+        const file = document.getElementById('tFile').files[0];
+        if(!amt || !file) return;
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            await db.ref('deposits').push({ user: currentUser, amount: amt, image: e.target.result, status: 'pending' });
+            alert("Topup Pending!");
+        };
+        reader.readAsDataURL(file);
     }
-    function toggleAuth(s) { document.getElementById('loginView').classList.toggle('hidden', s); document.getElementById('signView').classList.toggle('hidden', !s); }
+
+    // --- CHAT LOGIC ---
+    function sendUserChat() {
+        const t = document.getElementById('userChatInput').value;
+        if(t) { db.ref('chats/'+currentUser).push({ user: currentUser, text: t }); document.getElementById('userChatInput').value = ""; }
+    }
+    function loadUserChat() {
+        db.ref('chats/'+currentUser).on('value', s => {
+            let h = ""; s.forEach(c => { const m = c.val(); h += `<div class="msg ${m.user===currentUser?'msg-sent':'msg-received'}">${m.text}</div>`; });
+            const box = document.getElementById('chatBox'); box.innerHTML = h; box.scrollTop = box.scrollHeight;
+        });
+    }
+    function openAdminChat(u) {
+        currentAdminChatUser = u; document.getElementById('admChatView').classList.remove('hidden');
+        db.ref('chats/'+u).on('value', s => {
+            let h = ""; s.forEach(c => { const m = c.val(); h += `<div class="msg ${m.user==='admin'?'msg-sent':'msg-received'}">${m.text}</div>`; });
+            const box = document.getElementById('admChatBox'); box.innerHTML = h; box.scrollTop = box.scrollHeight;
+        });
+    }
+    function sendAdminChat() {
+        const t = document.getElementById('admChatInput').value;
+        if(t) { db.ref('chats/'+currentAdminChatUser).push({ user: 'admin', text: t }); document.getElementById('admChatInput').value = ""; }
+    }
+    function closeAdminChat() { document.getElementById('admChatView').classList.add('hidden'); }
+
+    // --- UTILS ---
+    function nav(p, el) {
+        ['shop','topup','chat','admin'].forEach(i => { if(document.getElementById(i+'Page')) document.getElementById(i+'Page').classList.add('hidden'); });
+        document.getElementById(p+'Page').classList.remove('hidden');
+        document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+        el.classList.add('active');
+    }
+    function logout() { localStorage.removeItem('zan_user'); location.reload(); }
     function loadBalance() { db.ref('users/'+currentUser+'/balance').on('value', s => document.getElementById('uBal').innerText = (s.val()||0).toLocaleString()); }
-    async function saveItem() {
-        const cat = document.getElementById('admCat').value;
-        const n = document.getElementById('admItemName').value;
-        const p = document.getElementById('admItemPrice').value;
-        if(n && p) { await db.ref('prices/'+cat).push({ n, p: parseInt(p) }); alert("Saved"); }
-    }
-    window.onload = startApp;
+    function toggleAuth(s) { document.getElementById('loginView').classList.toggle('hidden', s); document.getElementById('signView').classList.toggle('hidden', !s); }
+    async function editUserBal(u) { const a = prompt("Balance for "+u); if(a) await db.ref('users/'+u).update({balance:parseInt(a)}); }
+    async function toggleBan(u, b) { if(confirm("Confirm?")) await db.ref('users/'+u).update({status:b?'active':'banned'}); }
+    async function approveDep(k, u, a) { const s = await db.ref('users/'+u+'/balance').once('value'); await db.ref('users/'+u).update({balance:(s.val()||0)+parseInt(a)}); await db.ref('deposits/'+k).update({status:'approved'}); }
 </script>
 </body>
 </html>
-
