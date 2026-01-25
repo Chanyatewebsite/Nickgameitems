@@ -1,1755 +1,317 @@
-<!DOCTYPE html>
-<html lang="my
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>SUPER BOOST MM</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&display=swap" rel="stylesheet"/>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body { 
-            margin: 0; 
-            font-family: 'Padauk', sans-serif; 
-            background: linear-gradient(135deg, #1e3a8a 0%, #0f2a6d 100%);
-            color: #222;
-            min-height: 100vh;
-        }
-        
-        .text-center { text-align: center; }
-        
-        .header { 
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(10px);
-            padding: 15px 20px; 
-            color: #ffc107; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            position: sticky; 
-            top: 0; 
-            z-index: 20;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .logo img { height: 35px; vertical-align: middle; }
-        
-        .container { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: calc(100vh - 65px); 
-            padding: 20px; 
-            flex-direction: column; 
-        }
-        
-        .card { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); 
-            width: 100%; 
-            max-width: 450px; 
-            margin: 10px 0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-        }
-        
-        input, select { 
-            width: 100%; 
-            padding: 14px; 
-            margin: 10px 0; 
-            border: 2px solid #e1e5eb; 
-            border-radius: 8px; 
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus, select:focus {
-            border-color: #1e3a8a;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.2);
-        }
-        
-        label { 
-            font-weight: bold; 
-            display: block; 
-            margin-top: 15px; 
-            color: #333; 
-        }
-        
-        .btn { 
-            width: 100%; 
-            padding: 14px; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            font-size: 1rem; 
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn-primary { 
-            background: #1e3a8a; 
-            color: white; 
-        }
-        
-        .btn-primary:hover {
-            background: #0f2a6d;
-        }
-        
-        .btn-success {
-            background: #198754;
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: #157347;
-        }
-        
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: #bb2d3b;
-        }
-        
-        .btn-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-        
-        .btn-warning:hover {
-            background: #ffca2c;
-        }
-        
-        .btn-admin { 
-            background: white; 
-            color: #0d6efd; 
-            border: 2px solid #0d6efd; 
-            display: block; 
-            text-align: center; 
-            text-decoration: none; 
-            margin-top: 20px; 
-            padding: 14px; 
-            border-radius: 8px; 
-            width: 100%; 
-            max-width: 450px; 
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-        
-        .btn-admin:hover {
-            background: #0d6efd;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
-        }
-        
-        .divider { 
-            margin: 25px 0; 
-            border-top: 1px solid #ddd; 
-            position: relative; 
-            width: 100%; 
-            max-width: 450px; 
-        }
-        
-        .divider span { 
-            position: absolute; 
-            top: -12px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            background: white; 
-            padding: 0 15px; 
-            color: #777; 
-            font-size: 14px; 
-        }
-
-        .balance-box { 
-            background: white; 
-            color: #1e3a8a; 
-            padding: 20px; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-            font-size: 1.2rem; 
-            font-weight: bold; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border: 2px solid #ffc107; 
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .price-tag { 
-            font-size: 1.8rem; 
-            color: #1e3a8a; 
-            font-weight: bold; 
-            display: block; 
-            text-align: center; 
-            margin: 15px 0; 
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 2px dashed #1e3a8a;
-        }
-
-        #admin-view { display: none; }
-        
-        #dashboard { 
-            display: none; 
-            padding: 20px; 
-            width: 100%; 
-            max-width: 1200px; 
-        }
-
-        .dashboard-nav { 
-            display: flex; 
-            border-bottom: 2px solid #ccc; 
-            margin-bottom: 25px; 
-            gap: 10px; 
-            flex-wrap: wrap;
-            background: white;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .dashboard-nav button { 
-            background: none; 
-            border: none; 
-            padding: 12px 20px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            font-size: 1rem; 
-            color: #666; 
-            transition: all 0.3s;
-            border-radius: 8px;
-        }
-        
-        .dashboard-nav button:hover {
-            background: #f8f9fa;
-            color: #1e3a8a;
-        }
-        
-        .dashboard-nav button.active { 
-            color: #1e3a8a; 
-            background: #e9ecef;
-            border-bottom: 3px solid #ffc107; 
-            margin-bottom: -2px; 
-        }
-
-        .dashboard-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 25px; 
-            background: #1e3a8a; 
-            color: white; 
-            padding: 15px 25px; 
-            border-radius: 12px; 
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .table-wrapper { 
-            overflow-x: auto; 
-            background: white; 
-            border-radius: 12px; 
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); 
-            padding: 15px; 
-            margin-bottom: 25px; 
-        }
-        
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 10px; 
-            min-width: 800px; 
-        }
-        
-        th, td { 
-            padding: 14px; 
-            text-align: left; 
-            border-bottom: 1px solid #eee; 
-            font-size: 0.95rem; 
-        }
-        
-        th { 
-            background: #162a47; 
-            color: white; 
-            font-weight: bold;
-        }
-        
-        tr:hover {
-            background: #f8f9fa;
-        }
-
-        .modal { 
-            display: none; 
-            position: fixed; 
-            z-index: 100; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background-color: rgba(0, 0, 0, 0.5); 
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal-content { 
-            background: #fefefe; 
-            margin: 5% auto; 
-            padding: 25px; 
-            width: 90%; 
-            max-width: 800px; 
-            border-radius: 15px; 
-            position: relative; 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            animation: modalAppear 0.3s ease;
-        }
-        
-        @keyframes modalAppear {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .close-btn { 
-            color: #aaa; 
-            float: right; 
-            font-size: 28px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: color 0.3s;
-        }
-        
-        .close-btn:hover { 
-            color: black; 
-        }
-        
-        .package-item { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 12px 0; 
-            border-bottom: 1px dotted #eee; 
-        }
-        
-        .package-item:last-child { 
-            border-bottom: none; 
-        }
-        
-        .status-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-        }
-        
-        .status-pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .status-completed {
-            background: #d1edff;
-            color: #0c5460;
-        }
-        
-        .status-approved {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .status-rejected {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        .action-btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            margin: 0 5px;
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .action-btn:active {
-            transform: translateY(0);
-        }
-        
-        .action-btn-primary {
-            background: #0d6efd;
-            color: white;
-        }
-        
-        .action-btn-success {
-            background: #198754;
-            color: white;
-        }
-        
-        .action-btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-        
-        .action-btn-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-
-        /* small screens */
-        @media (max-width: 768px) {
-            .card { padding: 20px; }
-            table { min-width: 600px; }
-            .dashboard-nav {
-                flex-direction: column;
-            }
-            .dashboard-nav button {
-                width: 100%;
-                text-align: left;
-            }
-        }
-        
-        /* Admin login specific styles */
-        .admin-login-info {
-            background: #e7f1ff;
-            border-left: 4px solid #0d6efd;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-        
-        .notification-success {
-            background: #198754;
-        }
-        
-        .notification-error {
-            background: #dc3545;
-        }
-        
-        .notification-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-        
-        .notification-info {
-            background: #0dcaf0;
-            color: #000;
-        }
-        
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-        
-        .btn:disabled:hover {
-            transform: none !important;
-            box-shadow: none !important;
-        }
-    </style>
-</head>
-<body>
-    <div class="header" id="main-header">
-        <div class="logo">
-            <h3 style="margin:0; color:#ffc107;">SUPER BOOST MM</h3>
-        </div>
-        <div>
-            <button id="logout-btn" style="display:none; background:none; border:2px solid #ffc107; color:#ffc107; padding:8px 15px; border-radius:6px; cursor:pointer; font-weight:bold; transition: all 0.3s;">
-                <i class="fas fa-sign-out-alt"></i> ထွက်မည်
-            </button>
-        </div>
-    </div>
-
-    <!-- CUSTOMER VIEW -->
-    <div id="customer-view">
-        <div class="container">
-            <div class="card text-center" id="login-box">
-                <h3 class="text-center" style="color: #1e3a8a; margin-bottom: 20px;">အကောင့်ဝင်ရန် (Login)</h3>
-                <form id="login-form">
-                    <label>Username</label>
-                    <input type="text" id="l-user" placeholder="Username" required>
-                    <label>Password</label>
-                    <input type="password" id="l-pass" placeholder="Password" required>
-                    <button type="submit" class="btn btn-primary" id="login-btn">
-                        <i class="fas fa-sign-in-alt"></i> ဝင်မည်
-                    </button>
-                </form>
-                <div class="divider"><span>OR</span></div>
-                <button class="btn btn-warning" id="show-register-btn">
-                    <i class="fas fa-user-plus"></i> အကောင့်အသစ် ဖွင့်မည်
-                </button>
-            </div>
-
-            <div class="card text-center" id="register-box" style="display:none;">
-                <h3 class="text-center" style="color: #1e3a8a; margin-bottom: 20px;">အကောင့်ဖွင့်ရန် (Register)</h3>
-                <form id="register-form">
-                    <label>Username</label>
-                    <input type="text" id="r-user" placeholder="Username" required>
-                    <label>Password</label>
-                    <input type="password" id="r-pass" placeholder="Password" required>
-                    <label>ဖုန်းနံပါတ်</label>
-                    <input type="tel" id="r-phone" placeholder="09-xxxxxxxxx" required>
-                    <button type="submit" class="btn btn-success" id="register-btn">
-                        <i class="fas fa-user-plus"></i> အကောင့်ဖွင့်မည်
-                    </button>
-                </form>
-                <div class="divider"><span>OR</span></div>
-                <button class="btn btn-warning" id="show-login-btn">
-                    <i class="fas fa-arrow-left"></i> အကောင့်ဝင်ရန် ပြန်သွားမည်
-                </button>
-            </div>
-
-            <div id="customer-main" style="display:none; width:100%; max-width:450px;">
-                <div class="balance-box">
-                    <span>လက်ကျန်ငွေ (Balance):</span>
-                    <span id="current-balance" style="color:#1e3a8a;">0 Ks</span>
-                </div>
-
-                <div class="card" id="order-section" style="display:block;">
-                    <h3 id="welcome-txt" class="text-center" style="color: #1e3a8a; margin-bottom: 20px;">Boost Order တင်ရန်</h3>
-                    <form id="order-form">
-                        <label>Service ရွေးပါ</label>
-                        <select id="platform">
-                            <option value="">Select Service</option>
-                        </select>
-                        <label>Package ရွေးပါ</label>
-                        <select id="package" disabled>
-                            <option value="">Select Package</option>
-                        </select>
-                        <label>Link ထည့်ပါ</label>
-                        <input type="url" id="link" placeholder="https://facebook.com/..." required>
-
-                        <div style="text-align:center; margin:15px 0;">
-                            <span>ကျသင့်ငွေ (Total Amount)</span><br>
-                            <span id="price" class="price-tag">0 Ks</span>
-                        </div>
-
-                        <button type="submit" class="btn btn-success" id="order-btn">
-                            <i class="fas fa-rocket"></i> Order Now 🚀
-                        </button>
-                    </form>
-                    <div class="divider"><span>OR</span></div>
-                    <button class="btn btn-primary" id="show-topup-btn">
-                        <i class="fas fa-wallet"></i> ငွေဖြည့်သွင်းရန် (Top-up)
-                    </button>
-                </div>
-
-                <div class="card" id="topup-box" style="display:none;">
-                    <h3 class="text-center" style="color: #1e3a8a; margin-bottom: 20px;">ငွေဖြည့်သွင်းရန် တောင်းဆိုမှု</h3>
-                    <div class="payment-box">
-                        <p><strong>KBZPay:</strong> 09-123 456 789 (Mg Mg)</p>
-                        <p><strong>WavePay:</strong> 09-987 654 321 (Mg Mg)</p>
-                        <hr>
-                        <label>ငွေဘယ်လောက် ဖြည့်မလဲ?</label>
-                        <input type="number" id="topup-amount" placeholder="အနည်းဆုံး 100 Ks" required min="100">
-                        <label style="color:#d32f2f;">ပြေစာ (Receipt/Screenshot Reference Link/ID)</label>
-                        <input type="text" id="receipt-proof" placeholder="ပြေစာရဲ့ Link သို့မဟုတ် Reference Code ထည့်ပါ" required>
-                    </div>
-
-                    <button class="btn btn-primary" id="topup-btn">
-                        <i class="fas fa-paper-plane"></i> Top-up တောင်းဆိုမည်
-                    </button>
-                    <button class="btn btn-warning" style="margin-top:10px;" id="back-to-order-btn">
-                        <i class="fas fa-arrow-left"></i> နောက်သို့
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="divider"><span>Admin Only</span></div>
-            <a class="btn-admin" id="admin-panel-btn">
-                <i class="fas fa-user-shield"></i> Go to Admin Panel
-            </a>
-
-        </div>
-    </div>
-
-    <!-- ADMIN VIEW -->
-    <div id="admin-view">
-        <div class="container" id="admin-login-container">
-            <div class="card text-center" style="max-width:450px;">
-                <h3 class="text-center" style="color: #1e3a8a; margin-bottom: 20px;">Admin ဝင်ရန်</h3>
-                <div class="admin-login-info">
-                    <strong>Hello Welcome </strong> Admin
-                </div>
-                <form id="admin-login-form">
-                    <label>Password</label>
-                    <input type="password" id="admin-pass" placeholder="Admin Password" required>
-                    <button type="submit" class="btn btn-primary" id="admin-login-btn">
-                        <i class="fas fa-user-shield"></i> Admin ဝင်မည်
-                    </button>
-                </form>
-                <div class="divider"><span>OR</span></div>
-                <button class="btn btn-warning" id="back-to-user-btn">
-                    <i class="fas fa-arrow-left"></i> User Panel သို့ ပြန်သွားမည်
-                </button>
-            </div>
-        </div>
-
-        <div id="dashboard">
-            <div class="dashboard-header">
-                <h3 style="margin:0; color:white;">SUPER BOOST MM - Admin Dashboard</h3>
-                <button id="admin-logout-btn" class="action-btn action-btn-warning">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </div>
-
-            <div class="dashboard-nav">
-                <button id="user-tab">
-                    <i class="fas fa-users"></i> User Management
-                </button>
-                <button id="order-tab" class="active">
-                    <i class="fas fa-list-alt"></i> Orders & Topups
-                </button>
-                <button id="service-tab">
-                    <i class="fas fa-cogs"></i> Service Management
-                </button>
-            </div>
-
-            <div id="users-tab-content" style="display:none;">
-                <h3 style="color:#1e3a8a; margin-top:20px;">👤 Customer Account စာရင်း</h3>
-                <div class="table-wrapper">
-                    <table style="min-width:900px;">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>Phone</th>
-                                <th>Balance</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="user-table-body">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="orders-tab-content">
-                <h3 style="color:#d32f2f; margin-top:20px;">💰 Pending Top-up Requests</h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Amount</th>
-                                <th>Receipt Proof</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="topup-table-body">
-                        </tbody>
-                    </table>
-                </div>
-
-                <h3 style="color:#1e3a8a; margin-top:30px;">🛒 Sales Orders</h3>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date/ID</th>
-                                <th>Customer</th>
-                                <th>Service & Price</th>
-                                <th>Link</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="order-table-body">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="services-tab-content" style="display:none;">
-                <h3 style="color:#1e3a8a; margin-top:20px;">Service & Package စီမံခန့်ခွဲမှု</h3>
-                <button class="btn btn-success" style="width:auto; margin-bottom:15px;" id="add-service-btn">
-                    <i class="fas fa-plus-circle"></i> Add New Service
-                </button>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Service Name</th>
-                                <th>Packages Count</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="service-table-body">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Service modal -->
-            <div id="service-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn" id="close-service-modal">&times;</span>
-                    <h3 id="service-modal-title" style="color: #1e3a8a; margin-bottom: 20px;">Service အသစ်ထည့်ရန်</h3>
-                    <form id="service-form">
-                        <label for="service-name">Service Name (e.g., Facebook, TikTok)</label>
-                        <input type="text" id="service-name" required>
-                        <input type="hidden" id="original-service-name">
-                        <button type="submit" class="btn btn-primary" id="service-submit-btn">Save Service</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Package modal -->
-            <div id="package-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn" id="close-package-modal">&times;</span>
-                    <h3 id="package-modal-title" style="color: #1e3a8a; margin-bottom: 20px;"></h3>
-                    <h4>လက်ရှိ Packages များ</h4>
-                    <div id="packages-list"></div>
-                    <hr>
-                    <h4>Package အသစ်ထည့်ရန်</h4>
-                    <form id="add-package-form">
-                        <label for="package-name">Package Name (e.g., 1K Followers)</label>
-                        <input type="text" id="package-name" required>
-                        <label for="package-price">Price (Ks)</label>
-                        <input type="number" id="package-price" required min="100">
-                        <button type="submit" class="btn btn-primary" id="add-package-btn">
-                            <i class="fas fa-plus"></i> Add Package
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Edit package modal -->
-            <div id="edit-package-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn" id="close-edit-package-modal">&times;</span>
-                    <h3 style="color: #1e3a8a; margin-bottom: 20px;">Package ပြင်ဆင်ရန်</h3>
-                    <form id="edit-package-form">
-                        <input type="hidden" id="edit-service-name">
-                        <input type="hidden" id="edit-package-index">
-                        <label for="edit-package-uuid">Package ID (Unique Identifier)</label>
-                        <input type="text" id="edit-package-uuid" required>
-                        <label for="edit-package-name">Package Name</label>
-                        <input type="text" id="edit-package-name" required>
-                        <label for="edit-package-price">Price (Ks)</label>
-                        <input type="number" id="edit-package-price" required min="100">
-                        <button type="submit" class="btn btn-primary" id="save-package-btn">
-                            <i class="fas fa-save"></i> Save Changes
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- User history modal (simple) -->
-            <div id="user-history-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn" id="close-user-history-modal">&times;</span>
-                    <h3 style="color: #1e3a8a; margin-bottom: 20px;">User History</h3>
-                    <div id="user-history-content"></div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        /***************
-         * Initial Data
-         ***************/
-        // load from localStorage or defaults
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-        let orders = JSON.parse(localStorage.getItem("orders")) || [];
-        let topups = JSON.parse(localStorage.getItem("topups")) || [];
-        let services = JSON.parse(localStorage.getItem("services")) || [
-            // sample service with packages
-            { name: "Facebook", packages: [
-                { uuid: "fb-1k", name: "1K Followers", price: 5000 },
-                { uuid: "fb-500", name: "500 Followers", price: 3000 }
-            ]},
-            { name: "TikTok", packages: [
-                { uuid: "tt-1k", name: "1K Followers", price: 7000 }
-            ]}
-        ];
-
-        // save helpers
-        function saveAll() {
-            localStorage.setItem("users", JSON.stringify(users));
-            localStorage.setItem("orders", JSON.stringify(orders));
-            localStorage.setItem("topups", JSON.stringify(topups));
-            localStorage.setItem("services", JSON.stringify(services));
-        }
-
-        // Notification function
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 3000);
-        }
-
-        /*********
-         * UI Navigation
-         *********/
-        function showLogin() {
-            document.getElementById('login-box').style.display = 'block';
-            document.getElementById('register-box').style.display = 'none';
-        }
-
-        function showRegister() {
-            document.getElementById('login-box').style.display = 'none';
-            document.getElementById('register-box').style.display = 'block';
-        }
-
-        function showCustomerView() {
-            document.getElementById('customer-view').style.display = 'block';
-            document.getElementById('admin-view').style.display = 'none';
-        }
-
-        function showAdminView() {
-            document.getElementById('customer-view').style.display = 'none';
-            document.getElementById('admin-view').style.display = 'block';
-            document.getElementById('admin-login-container').style.display = 'block';
-            document.getElementById('dashboard').style.display = 'none';
-        }
-
-        function showOrderView() {
-            document.getElementById('order-section').style.display = 'block';
-            document.getElementById('topup-box').style.display = 'none';
-        }
-
-        function showTopupView() {
-            document.getElementById('order-section').style.display = 'none';
-            document.getElementById('topup-box').style.display = 'block';
-        }
-
-        /*********
-         * Customer Auth
-         *********/
-        function customerLogin() {
-            const username = document.getElementById('l-user').value;
-            const password = document.getElementById('l-pass').value;
-            const loginBtn = document.getElementById('login-btn');
-            
-            // Show loading
-            loginBtn.innerHTML = '<div class="loading"></div> ဝင်နေသည်...';
-            loginBtn.disabled = true;
-            
-            setTimeout(() => {
-                const user = users.find(u => u.username === username && u.password === password);
-                if (user) {
-                    // Store current user in session
-                    sessionStorage.setItem('currentUser', JSON.stringify(user));
-                    
-                    // Show customer main view
-                    document.getElementById('login-box').style.display = 'none';
-                    document.getElementById('customer-main').style.display = 'block';
-                    document.getElementById('welcome-txt').textContent = `မင်္ဂလာပါ ${user.username} ရေ`;
-                    document.getElementById('current-balance').textContent = user.balance + ' Ks';
-                    
-                    // Update logout button
-                    document.getElementById('logout-btn').style.display = 'block';
-                    
-                    // Load services for customer
-                    updateServiceSelect();
-                    
-                    showNotification('အကောင့်သို့ ဝင်ရောက်ခြင်း အောင်မြင်ပါသည်။', 'success');
-                } else {
-                    showNotification('Username သို့မဟုတ် Password မှားယွင်းနေပါသည်။', 'error');
-                }
-                
-                // Reset button
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> ဝင်မည်';
-                loginBtn.disabled = false;
-            }, 1000);
-        }
-
-        function register() {
-            const username = document.getElementById('r-user').value;
-            const password = document.getElementById('r-pass').value;
-            const phone = document.getElementById('r-phone').value;
-            const registerBtn = document.getElementById('register-btn');
-            
-            // Show loading
-            registerBtn.innerHTML = '<div class="loading"></div> ဖွင့်နေသည်...';
-            registerBtn.disabled = true;
-            
-            setTimeout(() => {
-                // Check if username already exists
-                if (users.find(u => u.username === username)) {
-                    showNotification('Username ရှိပြီးသားဖြစ်နေပါသည်။', 'error');
-                    registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> အကောင့်ဖွင့်မည်';
-                    registerBtn.disabled = false;
-                    return;
-                }
-                
-                // Add new user
-                const newUser = {
-                    username,
-                    password,
-                    phone,
-                    balance: 0
-                };
-                users.push(newUser);
-                saveAll();
-                
-                showNotification('အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်။ ကျေးဇူးပြု၍ ဝင်ရောက်ပါ။', 'success');
-                
-                // Reset button
-                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> အကောင့်ဖွင့်မည်';
-                registerBtn.disabled = false;
-                
-                showLogin();
-            }, 1000);
-        }
-
-        /*********
-         * Admin Auth
-         *********/
-        function adminLogin() {
-            const password = document.getElementById('admin-pass').value;
-            const adminLoginBtn = document.getElementById('admin-login-btn');
-            
-            // Show loading
-            adminLoginBtn.innerHTML = '<div class="loading"></div> ဝင်နေသည်...';
-            adminLoginBtn.disabled = true;
-            
-            setTimeout(() => {
-                // Check admin password
-                if (password === '@kyawthihahtun12345') {
-                    document.getElementById('admin-login-container').style.display = 'none';
-                    document.getElementById('dashboard').style.display = 'block';
-                    
-                    // Load admin data
-                    loadAdminData();
-                    
-                    showNotification('Admin အကောင့်သို့ ဝင်ရောက်ခြင်း အောင်မြင်ပါသည်။', 'success');
-                } else {
-                    showNotification('Admin Password မှားယွင်းနေပါသည်။', 'error');
-                }
-                
-                // Reset button
-                adminLoginBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin ဝင်မည်';
-                adminLoginBtn.disabled = false;
-            }, 1000);
-        }
-
-        function adminLogout() {
-            document.getElementById('admin-login-container').style.display = 'block';
-            document.getElementById('dashboard').style.display = 'none';
-            document.getElementById('admin-pass').value = '';
-            showNotification('Admin အကောင့်မှ ထွက်ခွာခြင်း အောင်မြင်ပါသည်။', 'info');
-        }
-
-        /*********
-         * Customer Functions
-         *********/
-        function updateServiceSelect() {
-            const platformSelect = document.getElementById('platform');
-            platformSelect.innerHTML = '<option value="">Select Service</option>';
-            
-            services.forEach(service => {
-                const option = document.createElement('option');
-                option.value = service.name;
-                option.textContent = service.name;
-                platformSelect.appendChild(option);
-            });
-        }
-
-        function updatePkg() {
-            const platform = document.getElementById('platform').value;
-            const packageSelect = document.getElementById('package');
-            
-            packageSelect.innerHTML = '<option value="">Select Package</option>';
-            
-            if (platform) {
-                const service = services.find(s => s.name === platform);
-                if (service) {
-                    service.packages.forEach(pkg => {
-                        const option = document.createElement('option');
-                        option.value = pkg.uuid;
-                        option.textContent = `${pkg.name} - ${pkg.price} Ks`;
-                        packageSelect.appendChild(option);
-                    });
-                    packageSelect.disabled = false;
-                }
-            } else {
-                packageSelect.disabled = true;
-            }
-            
-            updatePrice();
-        }
-
-        function updatePrice() {
-            const platform = document.getElementById('platform').value;
-            const packageUuid = document.getElementById('package').value;
-            const priceElement = document.getElementById('price');
-            
-            if (platform && packageUuid) {
-                const service = services.find(s => s.name === platform);
-                if (service) {
-                    const pkg = service.packages.find(p => p.uuid === packageUuid);
-                    if (pkg) {
-                        priceElement.textContent = pkg.price + ' Ks';
-                        return;
-                    }
-                }
-            }
-            
-            priceElement.textContent = '0 Ks';
-        }
-
-        function handleOrder(event) {
-            event.preventDefault();
-            
-            const orderBtn = document.getElementById('order-btn');
-            
-            // Show loading
-            orderBtn.innerHTML = '<div class="loading"></div> Order တင်နေသည်...';
-            orderBtn.disabled = true;
-            
-            setTimeout(() => {
-                // Get current user
-                const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-                if (!currentUser) {
-                    showNotification('ကျေးဇူးပြု၍ ပြန်လည်ဝင်ရောက်ပါ။', 'error');
-                    orderBtn.innerHTML = '<i class="fas fa-rocket"></i> Order Now 🚀';
-                    orderBtn.disabled = false;
-                    return;
-                }
-                
-                const platform = document.getElementById('platform').value;
-                const packageUuid = document.getElementById('package').value;
-                const link = document.getElementById('link').value;
-                
-                if (!platform || !packageUuid || !link) {
-                    showNotification('ကျေးဇူးပြု၍ လိုအပ်သော အချက်အလက်များ ဖြည့်သွင်းပါ။', 'error');
-                    orderBtn.innerHTML = '<i class="fas fa-rocket"></i> Order Now 🚀';
-                    orderBtn.disabled = false;
-                    return;
-                }
-                
-                // Find service and package
-                const service = services.find(s => s.name === platform);
-                const pkg = service.packages.find(p => p.uuid === packageUuid);
-                
-                // Check balance
-                if (currentUser.balance < pkg.price) {
-                    showNotification('လက်ကျန်ငွေ မလုံလောက်ပါ။ ကျေးဇူးပြု၍ ငွေဖြည့်သွင်းပါ။', 'error');
-                    orderBtn.innerHTML = '<i class="fas fa-rocket"></i> Order Now 🚀';
-                    orderBtn.disabled = false;
-                    return;
-                }
-                
-                // Create order
-                const order = {
-                    id: Date.now().toString(),
-                    customer: currentUser.username,
-                    service: platform,
-                    package: pkg.name,
-                    price: pkg.price,
-                    link: link,
-                    status: 'pending',
-                    date: new Date().toLocaleString()
-                };
-                
-                orders.push(order);
-                
-                // Deduct balance
-                const userIndex = users.findIndex(u => u.username === currentUser.username);
-                users[userIndex].balance -= pkg.price;
-                
-                // Update current user in session
-                currentUser.balance = users[userIndex].balance;
-                sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
-                
-                // Update UI
-                document.getElementById('current-balance').textContent = currentUser.balance + ' Ks';
-                
-                // Reset form
-                document.getElementById('platform').value = '';
-                document.getElementById('package').innerHTML = '<option value="">Select Package</option>';
-                document.getElementById('package').disabled = true;
-                document.getElementById('link').value = '';
-                document.getElementById('price').textContent = '0 Ks';
-                
-                saveAll();
-                showNotification('Order တင်ခြင်း အောင်မြင်ပါသည်။ ကျေးဇူးတင်ပါသည်။', 'success');
-                
-                // Reset button
-                orderBtn.innerHTML = '<i class="fas fa-rocket"></i> Order Now 🚀';
-                orderBtn.disabled = false;
-            }, 1500);
-        }
-
-        function submitTopup() {
-            const amount = parseInt(document.getElementById('topup-amount').value);
-            const receipt = document.getElementById('receipt-proof').value;
-            const topupBtn = document.getElementById('topup-btn');
-            
-            // Show loading
-            topupBtn.innerHTML = '<div class="loading"></div> တောင်းဆိုနေသည်...';
-            topupBtn.disabled = true;
-            
-            setTimeout(() => {
-                if (!amount || amount < 100 || !receipt) {
-                    showNotification('ကျေးဇူးပြု၍ ငွေဖြည့်သွင်းမှုအချက်အလက်များ ဖြည့်သွင်းပါ။', 'error');
-                    topupBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Top-up တောင်းဆိုမည်';
-                    topupBtn.disabled = false;
-                    return;
-                }
-                
-                // Get current user
-                const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-                if (!currentUser) {
-                    showNotification('ကျေးဇူးပြု၍ ပြန်လည်ဝင်ရောက်ပါ။', 'error');
-                    topupBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Top-up တောင်းဆိုမည်';
-                    topupBtn.disabled = false;
-                    return;
-                }
-                
-                // Create topup request
-                const topup = {
-                    id: Date.now().toString(),
-                    customer: currentUser.username,
-                    amount: amount,
-                    receipt: receipt,
-                    status: 'pending',
-                    date: new Date().toLocaleString()
-                };
-                
-                topups.push(topup);
-                saveAll();
-                
-                // Reset form
-                document.getElementById('topup-amount').value = '';
-                document.getElementById('receipt-proof').value = '';
-                
-                showNotification('ငွေဖြည့်သွင်းမှု တောင်းဆိုခြင်း အောင်မြင်ပါသည်။ Admin မှ အတည်ပြုပြီးနောက် သင့်အကောင့်သို့ ငွေထည့်ပေးသွားမည်ဖြစ်ပါသည်။', 'success');
-                
-                // Reset button
-                topupBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Top-up တောင်းဆိုမည်';
-                topupBtn.disabled = false;
-                
-                showOrderView();
-            }, 1500);
-        }
-
-        /*********
-         * Admin Functions
-         *********/
-        function loadAdminData() {
-            loadUserTable();
-            loadOrderTable();
-            loadTopupTable();
-            loadServiceTable();
-        }
-
-        function showAdminTab(tabName) {
-            // Hide all tab contents
-            document.getElementById('users-tab-content').style.display = 'none';
-            document.getElementById('orders-tab-content').style.display = 'none';
-            document.getElementById('services-tab-content').style.display = 'none';
-            
-            // Remove active class from all tabs
-            document.getElementById('user-tab').classList.remove('active');
-            document.getElementById('order-tab').classList.remove('active');
-            document.getElementById('service-tab').classList.remove('active');
-            
-            // Show selected tab and add active class
-            document.getElementById(tabName + '-tab-content').style.display = 'block';
-            document.getElementById(tabName + '-tab').classList.add('active');
-        }
-
-        function loadUserTable() {
-            const tbody = document.getElementById('user-table-body');
-            tbody.innerHTML = '';
-            
-            users.forEach(user => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${user.username}</td>
-                    <td>${user.password}</td>
-                    <td>${user.phone}</td>
-                    <td>${user.balance} Ks</td>
-                    <td>
-                        <button class="action-btn action-btn-primary view-history-btn" data-username="${user.username}">
-                            <i class="fas fa-history"></i> History
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function loadOrderTable() {
-            const tbody = document.getElementById('order-table-body');
-            tbody.innerHTML = '';
-            
-            orders.forEach(order => {
-                const statusClass = order.status === 'completed' ? 'status-completed' : 
-                                  order.status === 'cancelled' ? 'status-rejected' : 'status-pending';
-                
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${order.date}</td>
-                    <td>${order.customer}</td>
-                    <td>${order.service} - ${order.package}<br><strong>${order.price} Ks</strong></td>
-                    <td><a href="${order.link}" target="_blank">View Link</a></td>
-                    <td>
-                        <span class="status-badge ${statusClass}">${order.status}</span>
-                    </td>
-                    <td>
-                        <button class="action-btn action-btn-success complete-order-btn" data-order-id="${order.id}" ${order.status === 'completed' ? 'disabled' : ''}>
-                            <i class="fas fa-check"></i> Complete
-                        </button>
-                        <button class="action-btn action-btn-danger cancel-order-btn" data-order-id="${order.id}" ${order.status === 'cancelled' ? 'disabled' : ''}>
-                            <i class="fas fa-times"></i> Cancel
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function loadTopupTable() {
-            const tbody = document.getElementById('topup-table-body');
-            tbody.innerHTML = '';
-            
-            topups.filter(t => t.status === 'pending').forEach(topup => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${topup.customer}</td>
-                    <td>${topup.amount} Ks</td>
-                    <td>${topup.receipt}</td>
-                    <td><span class="status-badge status-pending">${topup.status}</span></td>
-                    <td>
-                        <button class="action-btn action-btn-success approve-topup-btn" data-topup-id="${topup.id}">
-                            <i class="fas fa-check"></i> Approve
-                        </button>
-                        <button class="action-btn action-btn-danger reject-topup-btn" data-topup-id="${topup.id}">
-                            <i class="fas fa-times"></i> Reject
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function loadServiceTable() {
-            const tbody = document.getElementById('service-table-body');
-            tbody.innerHTML = '';
-            
-            services.forEach(service => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${service.name}</td>
-                    <td>${service.packages.length}</td>
-                    <td>
-                        <button class="action-btn action-btn-primary edit-service-btn" data-service-name="${service.name}">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="action-btn action-btn-danger delete-service-btn" data-service-name="${service.name}" ${service.packages.length > 0 ? 'disabled' : ''}>
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function updateOrderStatus(orderId, status) {
-            const orderIndex = orders.findIndex(o => o.id === orderId);
-            if (orderIndex !== -1) {
-                orders[orderIndex].status = status;
-                saveAll();
-                loadOrderTable();
-                showNotification(`Order status updated to ${status}.`, 'success');
-            }
-        }
-
-        function approveTopup(topupId) {
-            const topupIndex = topups.findIndex(t => t.id === topupId);
-            if (topupIndex !== -1) {
-                const topup = topups[topupIndex];
-                
-                // Update topup status
-                topups[topupIndex].status = 'approved';
-                
-                // Update user balance
-                const userIndex = users.findIndex(u => u.username === topup.customer);
-                if (userIndex !== -1) {
-                    users[userIndex].balance += topup.amount;
-                }
-                
-                saveAll();
-                loadTopupTable();
-                loadUserTable();
-                showNotification('Top-up approved successfully.', 'success');
-            }
-        }
-
-        function rejectTopup(topupId) {
-            const topupIndex = topups.findIndex(t => t.id === topupId);
-            if (topupIndex !== -1) {
-                topups[topupIndex].status = 'rejected';
-                saveAll();
-                loadTopupTable();
-                showNotification('Top-up rejected.', 'info');
-            }
-        }
-
-        function viewUserHistory(username) {
-            const userOrders = orders.filter(o => o.customer === username);
-            const userTopups = topups.filter(t => t.customer === username);
-            
-            let content = `<h4>Order History</h4>`;
-            if (userOrders.length === 0) {
-                content += '<p>No orders found.</p>';
-            } else {
-                content += '<ul>';
-                userOrders.forEach(order => {
-                    const statusColor = order.status === 'completed' ? 'green' : 
-                                      order.status === 'cancelled' ? 'red' : 'orange';
-                    content += `<li>${order.date} - ${order.service} - ${order.package} - ${order.price} Ks - <span style="color:${statusColor}">${order.status}</span></li>`;
-                });
-                content += '</ul>';
-            }
-            
-            content += `<h4>Top-up History</h4>`;
-            if (userTopups.length === 0) {
-                content += '<p>No top-ups found.</p>';
-            } else {
-                content += '<ul>';
-                userTopups.forEach(topup => {
-                    const statusColor = topup.status === 'approved' ? 'green' : 
-                                      topup.status === 'rejected' ? 'red' : 'orange';
-                    content += `<li>${topup.date} - ${topup.amount} Ks - <span style="color:${statusColor}">${topup.status}</span></li>`;
-                });
-                content += '</ul>';
-            }
-            
-            document.getElementById('user-history-content').innerHTML = content;
-            document.getElementById('user-history-modal').style.display = 'block';
-        }
-
-        function closeUserHistoryModal() {
-            document.getElementById('user-history-modal').style.display = 'none';
-        }
-
-        /*********
-         * Service Management
-         *********/
-        function showServiceForm(serviceName = '') {
-            if (serviceName) {
-                // Edit mode
-                document.getElementById('service-modal-title').textContent = 'Service ပြင်ဆင်ရန်';
-                document.getElementById('service-name').value = serviceName;
-                document.getElementById('original-service-name').value = serviceName;
-                document.getElementById('service-submit-btn').textContent = 'Update Service';
-            } else {
-                // Add mode
-                document.getElementById('service-modal-title').textContent = 'Service အသစ်ထည့်ရန်';
-                document.getElementById('service-name').value = '';
-                document.getElementById('original-service-name').value = '';
-                document.getElementById('service-submit-btn').textContent = 'Save Service';
-            }
-            
-            document.getElementById('service-modal').style.display = 'block';
-        }
-
-        function closeServiceModal() {
-            document.getElementById('service-modal').style.display = 'none';
-        }
-
-        function handleServiceForm(event) {
-            event.preventDefault();
-            
-            const serviceName = document.getElementById('service-name').value;
-            const originalName = document.getElementById('original-service-name').value;
-            
-            if (originalName) {
-                // Update existing service
-                const serviceIndex = services.findIndex(s => s.name === originalName);
-                if (serviceIndex !== -1) {
-                    services[serviceIndex].name = serviceName;
-                }
-            } else {
-                // Add new service
-                if (services.find(s => s.name === serviceName)) {
-                    showNotification('Service name already exists.', 'error');
-                    return;
-                }
-                
-                services.push({
-                    name: serviceName,
-                    packages: []
-                });
-            }
-            
-            saveAll();
-            loadServiceTable();
-            closeServiceModal();
-            showNotification('Service saved successfully.', 'success');
-        }
-
-        function editService(serviceName) {
-            document.getElementById('package-modal-title').textContent = `Manage Packages for ${serviceName}`;
-            document.getElementById('package-modal').setAttribute('data-service', serviceName);
-            
-            const service = services.find(s => s.name === serviceName);
-            const packagesList = document.getElementById('packages-list');
-            packagesList.innerHTML = '';
-            
-            if (service.packages.length === 0) {
-                packagesList.innerHTML = '<p>No packages found.</p>';
-            } else {
-                service.packages.forEach((pkg, index) => {
-                    const div = document.createElement('div');
-                    div.className = 'package-item';
-                    div.innerHTML = `
-                        <div>
-                            <strong>${pkg.name}</strong><br>
-                            <small>ID: ${pkg.uuid} | Price: ${pkg.price} Ks</small>
-                        </div>
-                        <div>
-                            <button class="action-btn action-btn-primary edit-package-btn" data-service-name="${serviceName}" data-package-index="${index}">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="action-btn action-btn-danger delete-package-btn" data-service-name="${serviceName}" data-package-index="${index}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    `;
-                    packagesList.appendChild(div);
-                });
-            }
-            
-            document.getElementById('package-modal').style.display = 'block';
-        }
-
-        function closePackageModal() {
-            document.getElementById('package-modal').style.display = 'none';
-        }
-
-        function addPackage(event) {
-            event.preventDefault();
-            
-            const serviceName = document.getElementById('package-modal').getAttribute('data-service');
-            const packageName = document.getElementById('package-name').value;
-            const packagePrice = parseInt(document.getElementById('package-price').value);
-            
-            if (!packageName || !packagePrice) {
-                showNotification('Please fill in all package details.', 'error');
-                return;
-            }
-            
-            const serviceIndex = services.findIndex(s => s.name === serviceName);
-            if (serviceIndex !== -1) {
-                const newPackage = {
-                    uuid: `${serviceName.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`,
-                    name: packageName,
-                    price: packagePrice
-                };
-                
-                services[serviceIndex].packages.push(newPackage);
-                saveAll();
-                
-                // Refresh package list
-                editService(serviceName);
-                
-                // Reset form
-                document.getElementById('package-name').value = '';
-                document.getElementById('package-price').value = '';
-                
-                showNotification('Package added successfully.', 'success');
-            }
-        }
-
-        function editPackage(serviceName, packageIndex) {
-            const service = services.find(s => s.name === serviceName);
-            const pkg = service.packages[packageIndex];
-            
-            document.getElementById('edit-service-name').value = serviceName;
-            document.getElementById('edit-package-index').value = packageIndex;
-            document.getElementById('edit-package-uuid').value = pkg.uuid;
-            document.getElementById('edit-package-name').value = pkg.name;
-            document.getElementById('edit-package-price').value = pkg.price;
-            
-            document.getElementById('edit-package-modal').style.display = 'block';
-        }
-
-        function closeEditPackageModal() {
-            document.getElementById('edit-package-modal').style.display = 'none';
-        }
-
-        function saveEditedPackage(event) {
-            event.preventDefault();
-            
-            const serviceName = document.getElementById('edit-service-name').value;
-            const packageIndex = parseInt(document.getElementById('edit-package-index').value);
-            const uuid = document.getElementById('edit-package-uuid').value;
-            const name = document.getElementById('edit-package-name').value;
-            const price = parseInt(document.getElementById('edit-package-price').value);
-            
-            const service = services.find(s => s.name === serviceName);
-            if (service) {
-                service.packages[packageIndex] = {
-                    uuid: uuid,
-                    name: name,
-                    price: price
-                };
-                
-                saveAll();
-                closeEditPackageModal();
-                editService(serviceName); // Refresh the package list
-                showNotification('Package updated successfully.', 'success');
-            }
-        }
-
-        function deletePackage(serviceName, packageIndex) {
-            if (confirm('Are you sure you want to delete this package?')) {
-                const service = services.find(s => s.name === serviceName);
-                if (service) {
-                    service.packages.splice(packageIndex, 1);
-                    saveAll();
-                    editService(serviceName); // Refresh the package list
-                    showNotification('Package deleted successfully.', 'success');
-                }
-            }
-        }
-
-        function deleteService(serviceName) {
-            if (confirm('Are you sure you want to delete this service? This will also delete all associated packages.')) {
-                const serviceIndex = services.findIndex(s => s.name === serviceName);
-                if (serviceIndex !== -1) {
-                    services.splice(serviceIndex, 1);
-                    saveAll();
-                    loadServiceTable();
-                    showNotification('Service deleted successfully.', 'success');
-                }
-            }
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set up form event listeners
-            document.getElementById('login-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                customerLogin();
-            });
-            
-            document.getElementById('register-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                register();
-            });
-            
-            document.getElementById('order-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                handleOrder(e);
-            });
-            
-            document.getElementById('admin-login-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                adminLogin();
-            });
-            
-            document.getElementById('service-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                handleServiceForm(e);
-            });
-            
-            document.getElementById('add-package-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                addPackage(e);
-            });
-            
-            document.getElementById('edit-package-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                saveEditedPackage(e);
-            });
-            
-            // Set up button event listeners
-            document.getElementById('show-register-btn').addEventListener('click', showRegister);
-            document.getElementById('show-login-btn').addEventListener('click', showLogin);
-            document.getElementById('show-topup-btn').addEventListener('click', showTopupView);
-            document.getElementById('back-to-order-btn').addEventListener('click', showOrderView);
-            document.getElementById('admin-panel-btn').addEventListener('click', showAdminView);
-            document.getElementById('back-to-user-btn').addEventListener('click', showCustomerView);
-            document.getElementById('admin-logout-btn').addEventListener('click', adminLogout);
-            document.getElementById('add-service-btn').addEventListener('click', function() { showServiceForm(); });
-            document.getElementById('close-service-modal').addEventListener('click', closeServiceModal);
-            document.getElementById('close-package-modal').addEventListener('click', closePackageModal);
-            document.getElementById('close-edit-package-modal').addEventListener('click', closeEditPackageModal);
-            document.getElementById('close-user-history-modal').addEventListener('click', closeUserHistoryModal);
-            document.getElementById('logout-btn').addEventListener('click', function() {
-                sessionStorage.removeItem('currentUser');
-                location.reload();
-            });
-            
-            // Set up platform change listener
-            document.getElementById('platform').addEventListener('change', updatePkg);
-            document.getElementById('package').addEventListener('change', updatePrice);
-            
-            // Set up admin tab listeners
-            document.getElementById('user-tab').addEventListener('click', function() { showAdminTab('users'); });
-            document.getElementById('order-tab').addEventListener('click', function() { showAdminTab('orders'); });
-            document.getElementById('service-tab').addEventListener('click', function() { showAdminTab('services'); });
-            
-            // Set up topup button listener
-            document.getElementById('topup-btn').addEventListener('click', submitTopup);
-            
-            // Check if user is already logged in
-            const currentUser = sessionStorage.getItem('currentUser');
-            if (currentUser) {
-                const user = JSON.parse(currentUser);
-                document.getElementById('login-box').style.display = 'none';
-                document.getElementById('customer-main').style.display = 'block';
-                document.getElementById('welcome-txt').textContent = `မင်္ဂလာပါ ${user.username} ရေ`;
-                document.getElementById('current-balance').textContent = user.balance + ' Ks';
-                document.getElementById('logout-btn').style.display = 'block';
-                updateServiceSelect();
-            }
-            
-            // Set up event delegation for dynamic admin buttons
-            document.addEventListener('click', function(e) {
-                // User history buttons
-                if (e.target.classList.contains('view-history-btn') || e.target.closest('.view-history-btn')) {
-                    const btn = e.target.classList.contains('view-history-btn') ? e.target : e.target.closest('.view-history-btn');
-                    const username = btn.getAttribute('data-username');
-                    viewUserHistory(username);
-                }
-                
-                // Order action buttons
-                if (e.target.classList.contains('complete-order-btn') || e.target.closest('.complete-order-btn')) {
-                    const btn = e.target.classList.contains('complete-order-btn') ? e.target : e.target.closest('.complete-order-btn');
-                    const orderId = btn.getAttribute('data-order-id');
-                    updateOrderStatus(orderId, 'completed');
-                }
-                
-                if (e.target.classList.contains('cancel-order-btn') || e.target.closest('.cancel-order-btn')) {
-                    const btn = e.target.classList.contains('cancel-order-btn') ? e.target : e.target.closest('.cancel-order-btn');
-                    const orderId = btn.getAttribute('data-order-id');
-                    updateOrderStatus(orderId, 'cancelled');
-                }
-                
-                // Topup action buttons
-                if (e.target.classList.contains('approve-topup-btn') || e.target.closest('.approve-topup-btn')) {
-                    const btn = e.target.classList.contains('approve-topup-btn') ? e.target : e.target.closest('.approve-topup-btn');
-                    const topupId = btn.getAttribute('data-topup-id');
-                    approveTopup(topupId);
-                }
-                
-                if (e.target.classList.contains('reject-topup-btn') || e.target.closest('.reject-topup-btn')) {
-                    const btn = e.target.classList.contains('reject-topup-btn') ? e.target : e.target.closest('.reject-topup-btn');
-                    const topupId = btn.getAttribute('data-topup-id');
-                    rejectTopup(topupId);
-                }
-                
-                // Service action buttons
-                if (e.target.classList.contains('edit-service-btn') || e.target.closest('.edit-service-btn')) {
-                    const btn = e.target.classList.contains('edit-service-btn') ? e.target : e.target.closest('.edit-service-btn');
-                    const serviceName = btn.getAttribute('data-service-name');
-                    editService(serviceName);
-                }
-                
-                if (e.target.classList.contains('delete-service-btn') || e.target.closest('.delete-service-btn')) {
-                    const btn = e.target.classList.contains('delete-service-btn') ? e.target : e.target.closest('.delete-service-btn');
-                    const serviceName = btn.getAttribute('data-service-name');
-                    deleteService(serviceName);
-                }
-                
-                // Package action buttons
-                if (e.target.classList.contains('edit-package-btn') || e.target.closest('.edit-package-btn')) {
-                    const btn = e.target.classList.contains('edit-package-btn') ? e.target : e.target.closest('.edit-package-btn');
-                    const serviceName = btn.getAttribute('data-service-name');
-                    const packageIndex = parseInt(btn.getAttribute('data-package-index'));
-                    editPackage(serviceName, packageIndex);
-                }
-                
-                if (e.target.classList.contains('delete-package-btn') || e.target.closest('.delete-package-btn')) {
-                    const btn = e.target.classList.contains('delete-package-btn') ? e.target : e.target.closest('.delete-package-btn');
-                    const serviceName = btn.getAttribute('data-service-name');
-                    const packageIndex = parseInt(btn.getAttribute('data-package-index'));
-                    deletePackage(serviceName, packageIndex);
-                }
-            });
-        });
-    </script>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nick Game Items - Admin Pro</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <style>
+        :root { --primary: #00d2ff; --accent: #ff007b; --bg: #0a0a0c; --card: rgba(255, 255, 255, 0.08); --success: #00ff88; --danger: #ff4757; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #eee; margin: 0; padding-bottom: 90px; }
+        .container { max-width: 450px; margin: auto; padding: 15px; }
+        .hidden { display: none !important; }
+        .card { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 12px; backdrop-filter: blur(10px); }
+        input, select { width: 100%; padding: 10px; margin: 5px 0; border-radius: 8px; background: #1a1a1a; color: white; border: 1px solid #333; }
+        .btn { width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 0.8rem; }
+        .btn-wallet { background: var(--primary); color: #000; }
+        .btn-direct { background: var(--accent); color: #fff; }
+        .btn-success { background: var(--success); color: #000; }
+        .top-bar { background: rgba(0,0,0,0.9); padding: 15px; display: flex; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); }
+        .section-title { font-size: 0.85rem; color: var(--primary); margin: 15px 0 8px; border-left: 3px solid var(--accent); padding-left: 10px; font-weight: bold; }
+        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .price-item { background: rgba(255,255,255,0.03); padding: 10px 5px; border-radius: 8px; text-align: center; border: 1px solid #333; cursor: pointer; font-size: 0.7rem; position: relative; }
+        .price-item.selected { border-color: var(--accent); background: rgba(255,0,123,0.1); }
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 450px; background: #111; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #333; }
+        .nav-item { text-align: center; color: #777; font-size: 0.7rem; cursor: pointer; flex: 1; }
+        .nav-item.active { color: var(--primary); }
+        .chat-box { height: 250px; overflow-y: auto; background: #000; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+        .msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; font-size: 0.8rem; }
+        .msg.sent { align-self: flex-end; background: var(--primary); color: #000; }
+        .msg.received { align-self: flex-start; background: #333; color: #fff; }
+        .badge { background: var(--accent); color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.6rem; float: right; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div id="topNav" class="top-bar hidden">
+        <div><small id="userLabel"></small><br><b>💰 <span id="uBal">0</span> MMK</b></div>
+        <button onclick="logout()" style="background:none; color:red; border:1px solid red; padding:4px 8px; border-radius:5px; font-size:0.7rem;">Logout</button>
+    </div>
+
+    <div class="container">
+        <div id="authPanel">
+            <h1 style="text-align:center; color:var(--primary);">💎 Nick Game</h1>
+            <div id="loginView" class="card">
+                <input type="text" id="lUser" placeholder="Username">
+                <input type="password" id="lPass" placeholder="Password">
+                <button class="btn btn-wallet" onclick="handleLogin()">LOGIN</button>
+                <p onclick="toggleAuth(true)" style="text-align:center; cursor:pointer;"><small>အကောင့်သစ်ဖွင့်ရန်</small></p>
+            </div>
+            <div id="signView" class="card hidden">
+                <input type="text" id="sUser" placeholder="Username">
+                <input type="password" id="sPass" placeholder="Password">
+                <button class="btn btn-direct" onclick="handleSignUp()">REGISTER</button>
+                <p onclick="toggleAuth(false)" style="text-align:center; cursor:pointer;"><small>Login ပြန်ဝင်ရန်</small></p>
+            </div>
+        </div>
+
+        <div id="adminPage" class="hidden">
+            <h2 style="color:var(--primary); text-align:center;">Admin Master Panel</h2>
+            
+            <div class="section-title">💸 Pending Deposits (ငွေဖြည့်လွှာများ)</div>
+            <div id="admDeposits"></div>
+
+            <div class="section-title">📦 New Orders (အော်ဒါများ)</div>
+            <div id="admOrders"></div>
+
+            <div class="section-title">💬 User Chats (မက်ဆေ့ခ်ျများ)</div>
+            <div id="admChatList"></div>
+            <div id="admChatView" class="card hidden">
+                <button onclick="closeAdminChat()" style="float:right; background:none; border:none; color:red;">Close</button>
+                <h4 id="targetChatUser"></h4>
+                <div id="admChatBox" class="chat-box"></div>
+                <div style="display:flex; gap:5px;">
+                    <input type="text" id="admChatInput" placeholder="စာပြန်ရန်...">
+                    <button class="btn btn-wallet" style="width:70px;" onclick="sendAdminChat()">Send</button>
+                </div>
+            </div>
+
+            <div class="section-title">➕ Add Products</div>
+            <div class="card">
+                <select id="admCat">
+                    <option value="weekly">ML Weekly</option>
+                    <option value="normal">ML Dia</option>
+                    <option value="uc_normal">PUBG UC</option>
+                </select>
+                <input type="text" id="admItemName" placeholder="Name">
+                <input type="number" id="admItemPrice" placeholder="Price">
+                <button class="btn btn-success" onclick="saveItem()">Save</button>
+            </div>
+        </div>
+
+        <div id="shopPage" class="hidden">
+            <div class="section-title">MLBB Items</div><div class="price-grid" id="gridWeekly"></div><div class="price-grid" id="gridNormal"></div>
+            <div class="section-title">PUBG UC</div><div class="price-grid" id="gridUc_normal"></div>
+            
+            <div class="card" style="margin-top:20px;">
+                <h4 id="selText">ပစ္စည်းရွေးပါ</h4>
+                <input type="text" id="gameId" placeholder="Game ID / Player ID">
+                <div style="display:flex; gap:10px;">
+                    <button class="btn btn-direct" onclick="submitOrder('direct')">တိုက်ရိုက်ဝယ်</button>
+                    <button class="btn btn-wallet" onclick="submitOrder('wallet')">Wallet ဖြင့်ဝယ်</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="topupPage" class="hidden">
+            <div class="card">
+                <h3>💰 Wallet Topup</h3>
+                <input type="number" id="tAmt" placeholder="Amount">
+                <button class="btn btn-wallet" onclick="submitDeposit()">Submit Request</button>
+            </div>
+        </div>
+
+        <div id="chatPage" class="hidden">
+            <div class="card">
+                <h3>💬 Chat with Admin</h3>
+                <div id="chatBox" class="chat-box"></div>
+                <div style="display:flex; gap:5px;">
+                    <input type="text" id="userChatInput" placeholder="စာရေးပါ...">
+                    <button class="btn btn-direct" style="width:70px;" onclick="sendUserChat()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="botNav" class="bottom-nav hidden">
+        <div class="nav-item" id="navShop" onclick="nav('shop', this)">🏠<br>Shop</div>
+        <div class="nav-item" id="navTopup" onclick="nav('topup', this)">💸<br>Topup</div>
+        <div class="nav-item" id="navChat" onclick="nav('chat', this)">💬<br>Chat</div>
+        <div id="adminTab" class="nav-item hidden" onclick="nav('admin', this)">⚙️<br>Admin</div>
+    </div>
+</div>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCwm2wNMX2u221y2SvxUub1IoFRrTR--88",
+        authDomain: "nickgameitems.firebaseapp.com",
+        databaseURL: "https://nickgameitems-default-rtdb.firebaseio.com",
+        projectId: "nickgameitems",
+        storageBucket: "nickgameitems.firebasestorage.app",
+        messagingSenderId: "43892922893",
+        appId: "1:43892922893:web:23b2ec8e1b16d3d28cd344"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const ADMIN_CREDS = { u: "admin", p: "nickgame" };
+    let currentUser = null; let selectedItem = null; let currentAdminChatUser = null;
+
+    function startApp() {
+        currentUser = localStorage.getItem('zan_user');
+        if(!currentUser) return;
+        document.getElementById('authPanel').classList.add('hidden');
+        document.getElementById('topNav').classList.remove('hidden');
+        document.getElementById('botNav').classList.remove('hidden');
+        document.getElementById('userLabel').innerText = "User: " + currentUser;
+        loadPrices(); loadBalance();
+        if(currentUser === ADMIN_CREDS.u) {
+            document.getElementById('adminTab').classList.remove('hidden');
+            loadAdminData(); nav('admin', document.getElementById('adminTab'));
+        } else {
+            loadUserChat(); nav('shop', document.getElementById('navShop'));
+        }
+    }
+
+    // --- Admin Engine ---
+    function loadAdminData() {
+        // Deposits
+        db.ref('deposits').on('value', s => {
+            let h = ""; s.forEach(c => {
+                const d = c.val(); if(d.status==='pending') {
+                    h += `<div class="card">User: ${d.user} | <b>${d.amount}ks</b> 
+                        <button class="btn btn-success" onclick="approveDeposit('${c.key}','${d.user}',${d.amount})">Approve</button></div>`;
+                }
+            });
+            document.getElementById('admDeposits').innerHTML = h || "<p>No pending deposits</p>";
+        });
+        // Orders
+        db.ref('orders').on('value', s => {
+            let h = ""; s.forEach(c => {
+                const o = c.val(); if(o.status==='pending') {
+                    h += `<div class="card"><b>${o.item}</b> (${o.type})<br>ID: ${o.gid} | User: ${o.user}
+                        <button class="btn btn-wallet" onclick="db.ref('orders/${c.key}').update({status:'done'})">Done</button></div>`;
+                }
+            });
+            document.getElementById('admOrders').innerHTML = h || "<p>No orders</p>";
+        });
+        // Chat List
+        db.ref('chats').on('value', s => {
+            let h = ""; s.forEach(c => {
+                h += `<div class="card" onclick="openAdminChat('${c.key}')" style="cursor:pointer;">💬 Chat with: <b>${c.key}</b></div>`;
+            });
+            document.getElementById('admChatList').innerHTML = h || "<p>No chats</p>";
+        });
+    }
+
+    async function approveDeposit(key, user, amt) {
+        const s = await db.ref('users/'+user+'/balance').once('value');
+        const cur = s.val() || 0;
+        await db.ref('users/'+user).update({ balance: cur + parseInt(amt) });
+        await db.ref('deposits/'+key).update({ status: 'approved' });
+        alert("Approved!");
+    }
+
+    function openAdminChat(user) {
+        currentAdminChatUser = user;
+        document.getElementById('admChatView').classList.remove('hidden');
+        document.getElementById('targetChatUser').innerText = "Chatting with: " + user;
+        db.ref('chats/'+user).on('value', s => {
+            let h = ""; s.forEach(c => {
+                const m = c.val();
+                h += `<div class="msg ${m.user==='admin'?'sent':'received'}">${m.text}</div>`;
+            });
+            document.getElementById('admChatBox').innerHTML = h;
+            document.getElementById('admChatBox').scrollTop = document.getElementById('admChatBox').scrollHeight;
+        });
+    }
+
+    function sendAdminChat() {
+        const txt = document.getElementById('admChatInput').value;
+        if(txt && currentAdminChatUser) {
+            db.ref('chats/'+currentAdminChatUser).push({ user: 'admin', text: txt });
+            document.getElementById('admChatInput').value = "";
+        }
+    }
+
+    function closeAdminChat() { document.getElementById('admChatView').classList.add('hidden'); }
+
+    // --- User Chat ---
+    function sendUserChat() {
+        const txt = document.getElementById('userChatInput').value;
+        if(txt) {
+            db.ref('chats/'+currentUser).push({ user: currentUser, text: txt });
+            document.getElementById('userChatInput').value = "";
+        }
+    }
+
+    function loadUserChat() {
+        db.ref('chats/'+currentUser).on('value', s => {
+            let h = ""; s.forEach(c => {
+                const m = c.val();
+                h += `<div class="msg ${m.user===currentUser?'sent':'received'}">${m.text}</div>`;
+            });
+            document.getElementById('chatBox').innerHTML = h;
+            document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+        });
+    }
+
+    // --- Core Functions ---
+    async function submitDeposit() {
+        const amt = document.getElementById('tAmt').value;
+        if(amt) {
+            await db.ref('deposits').push({ user: currentUser, amount: amt, status: 'pending' });
+            alert("Sent! Admin will check soon.");
+        }
+    }
+
+    async function submitOrder(type) {
+        if(!selectedItem) return alert("Select item");
+        const gid = document.getElementById('gameId').value;
+        if(!gid) return alert("Enter ID");
+        if(type==='wallet') {
+            const s = await db.ref('users/'+currentUser+'/balance').once('value');
+            if((s.val()||0) < selectedItem.p) return alert("No balance");
+            await db.ref('users/'+currentUser).update({ balance: s.val() - selectedItem.p });
+        }
+        await db.ref('orders').push({ user: currentUser, item: selectedItem.n, gid, type, status:'pending' });
+        alert("Ordered!");
+    }
+
+    function loadPrices() {
+        db.ref('prices').on('value', s => {
+            const d = s.val() || {};
+            ['weekly','normal','uc_normal'].forEach(c => {
+                let h = ""; if(d[c]) Object.keys(d[c]).forEach(k => {
+                    const i = d[c][k];
+                    h += `<div class="price-item" onclick="select(this,'${i.n}',${i.p})"><b>${i.n}</b><br>${i.p}k</div>`;
+                });
+                const box = document.getElementById('grid'+c.charAt(0).toUpperCase()+c.slice(1));
+                if(box) box.innerHTML = h;
+            });
+        });
+    }
+
+    // Auth & UI Helpers
+    function select(el, n, p) { selectedItem = {n, p}; document.querySelectorAll('.price-item').forEach(x => x.classList.remove('selected')); el.classList.add('selected'); document.getElementById('selText').innerText = n + " ("+p+"ks)"; }
+    function nav(p, el) { ['shop','topup','chat','admin'].forEach(i => document.getElementById(i+'Page') && document.getElementById(i+'Page').classList.add('hidden')); document.getElementById(p+'Page').classList.remove('hidden'); document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active')); el.classList.add('active'); }
+    function logout() { localStorage.removeItem('zan_user'); location.reload(); }
+    async function handleLogin() {
+        const u = document.getElementById('lUser').value.trim();
+        const p = document.getElementById('lPass').value;
+        if(u===ADMIN_CREDS.u && p===ADMIN_CREDS.p) currentUser = u;
+        else {
+            const s = await db.ref('users/'+u).once('value');
+            if(s.exists() && s.val().password === p) currentUser = u;
+            else return alert("Failed");
+        }
+        localStorage.setItem('zan_user', currentUser); startApp();
+    }
+    async function handleSignUp() {
+        const u = document.getElementById('sUser').value.trim();
+        const p = document.getElementById('sPass').value;
+        if(u && p) { await db.ref('users/'+u).set({ password: p, balance: 0 }); alert("Success"); toggleAuth(false); }
+    }
+    function toggleAuth(s) { document.getElementById('loginView').classList.toggle('hidden', s); document.getElementById('signView').classList.toggle('hidden', !s); }
+    function loadBalance() { db.ref('users/'+currentUser+'/balance').on('value', s => document.getElementById('uBal').innerText = (s.val()||0).toLocaleString()); }
+    async function saveItem() {
+        const cat = document.getElementById('admCat').value;
+        const n = document.getElementById('admItemName').value;
+        const p = document.getElementById('admItemPrice').value;
+        if(n && p) { await db.ref('prices/'+cat).push({ n, p: parseInt(p) }); alert("Saved"); }
+    }
+    window.onload = startApp;
+</script>
+</body>
 </html>
